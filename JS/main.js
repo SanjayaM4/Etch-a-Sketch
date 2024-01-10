@@ -9,18 +9,37 @@ function newGrid(size)
 
     for (i = 0; i < size; i++)
     {
-        divArray[i] = document.createElement("div");
+        const box = document.createElement("div");
+        box.classList.add("grid-item");
 
-        divArray[i].addEventListener('mouseover', function(event){
+        box.addEventListener('mouseover', function(event){
             event.target.style.backgroundColor = 'black';
         })
 
-        divArray[i].style.width = cellSize;
-        divArray[i].style.height = cellSize;
+        box.style.width = cellSize;
+        box.style.height = cellSize;
 
-        container.appendChild(divArray[i]);
+        container.appendChild(box);
     }
 
 }
+
+const rainbowButton = document.querySelector('#rainbow');
+rainbowButton.addEventListener('click', () => {
+    var boxes = document.getElementsByClassName("grid-item");
+    for (i = 0; i < boxes.length; i++)
+    {
+        boxes[i].addEventListener('mouseover', function(event){
+            boxes[i].removeEventListener('mouseover', arguments.callee, false) ;
+        })
+    }
+  });
+
+function randomColor() {
+    // return "#" + Math.floor(Math.random()*16777215).toString(16);
+    // this returns fewer colors but they are all nice and bright
+    return `hsl(${Math.random() * 360}, 100%, 50%)`;
+  }
+
 
 newGrid(16);
