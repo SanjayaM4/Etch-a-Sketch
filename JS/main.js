@@ -3,7 +3,7 @@ function newGrid(size)
     size = size || 16;
     cellSize = 40/Math.sqrt(size) + "rem";
 
-    const mainContainerDiv = document.getElementById("maincontainer");
+    const container = document.querySelector(".grid-container");
 
     let divArray = [];
 
@@ -18,7 +18,7 @@ function newGrid(size)
         divArray[i].style.width = cellSize;
         divArray[i].style.height = cellSize;
 
-        mainContainerDiv.appendChild(divArray[i]);
+        container.appendChild(divArray[i]);
     }
 
 }
