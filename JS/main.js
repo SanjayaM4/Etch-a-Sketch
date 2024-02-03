@@ -1,9 +1,13 @@
 function newGrid(size)
 {
     size = size || 16;
-    let cellSize = 40/Math.sqrt(size) + "rem";
+
+    let cellSize = (30 / Math.sqrt(size)) + "rem";
 
     const container = document.querySelector(".grid-container");
+    
+    container.style.gridTemplateColumns = `repeat(${Math.sqrt(size)}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${Math.sqrt(size)}, 1fr)`;
 
     let divArray = [];
 
@@ -14,13 +18,23 @@ function newGrid(size)
 
         box.addEventListener('mouseover', handleMouseoverDefault)
 
-        box.style.backgroundColor = 'rgb(255, 255, 255)';
         box.style.width = cellSize;
         box.style.height = cellSize;
+        box.style.backgroundColor = 'rgb(255, 255, 255)';
 
         container.appendChild(box);
     }
 
+}
+
+function updateGridSize() {
+
+    const newSize = gridSizeSlider.value ** 2;
+
+    const container = document.querySelector(".grid-container");
+    container.innerHTML = '';
+
+    newGrid(newSize);
 }
 
 function handleMouseoverDefault(event) 
@@ -44,6 +58,8 @@ function handleMouseoverShader(event)
     event.target.style.backgroundColor = darkenColor(currentColor, 0.2);
 }
 
+const gridSizeSlider = document.getElementById('grid-size');
+gridSizeSlider.addEventListener('input', updateGridSize);
 
 const defaultButton = document.querySelector('#default');
 defaultButton.addEventListener('click', () => {
@@ -124,9 +140,5 @@ function darkenColor(color, factor) {
     // Convert back to rgb and return
     return `rgb(${subtractedValues.join(', ')})`;
 }
-
-
-
-
 
 newGrid(16);
